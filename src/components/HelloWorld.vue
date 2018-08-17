@@ -9,11 +9,15 @@ import { Component, Vue } from 'vue-property-decorator';
 @Component({
   apollo: {
     language: {
+      manual: true,
       query: gql`{ ... }`,
       variables() {
         return {
           language: this.language,
         };
+      },
+      result({ data, loading }: { data: any, loading: any }) {
+        this.result = data;
       },
       error() {
         this.error = true;
@@ -28,5 +32,7 @@ export default class HelloWorld extends Vue {
   language = 'fr';
   error = false;
   loading = false;
+
+  result!: any;
 }
 </script>
